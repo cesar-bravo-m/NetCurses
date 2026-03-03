@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>BCyT.NetCurses</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>NetCurses - A pure C# implementation of NCurses</Title>
+    <Authors>cbravo</Authors>
+    <Company>Bravo Ciencia y Tecnología SpA</Company>
+    <Description>A pure C# implementation of NCurses, a TUI framework.</Description>
+    <Copyright>ISC Copyright (c) 2026 César Bravo Molina</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="NetCurses.Tests" />
+  </ItemGroup>
+
+</Project>

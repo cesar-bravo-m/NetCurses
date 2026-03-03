@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NetCurses API Reference — C ncurses vs NetCurses</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Segoe UI", system-ui, -apple-system, sans-serif; background: #0e0e0e; color: #d4d4d4; padding: 2rem; line-height: 1.5; }
+  h1 { font-size: 1.6rem; color: #e0e0e0; margin-bottom: .3rem; }
+  .subtitle { color: #888; font-size: .95rem; margin-bottom: 2rem; }
+  h2 { font-size: 1.15rem; color: #c0c0c0; margin: 2.5rem 0 .75rem; padding-bottom: .4rem; border-bottom: 1px solid #2a2a2a; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+  th { text-align: left; padding: .55rem .75rem; background: #1a1a1a; color: #aaa; font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; border-bottom: 2px solid #2a2a2a; }
+  td { padding: .5rem .75rem; border-bottom: 1px solid #1e1e1e; font-size: .88rem; vertical-align: top; }
+  tr:hover td { background: #161616; }
+  code { font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", Consolas, monospace; font-size: .82rem; }
+  .c-sig code { color: #9cdcfe; }
+  .net-sig code { color: #dcdcaa; }
+  .na { color: #555; font-style: italic; }
+  footer { margin-top: 3rem; color: #555; font-size: .8rem; border-top: 1px solid #1e1e1e; padding-top: 1rem; }
+</style>
+</head>
+<body>
+
+<h1>C ncurses <-> NetCurses</h1>
+<p class="subtitle">NetCurses methods are on the static <code>NetCurses</code> class or on <code>Window</code> instances.</p>
+
+<h2>Initialization &amp; Teardown</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>WINDOW *initscr(void)</code></td>                <td class="net-sig"><code>Window NetCurses.InitScreen()</code></td></tr>
+<tr><td class="c-sig"><code>int endwin(void)</code></td>                     <td class="net-sig"><code>void NetCurses.EndWin()</code></td></tr>
+</table>
+
+<h2>Output</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int addch(chtype ch)</code></td>                  <td class="net-sig"><code>void NetCurses.AddChar(int ch)</code></td></tr>
+<tr><td class="c-sig"><code>int waddch(WINDOW *w, chtype ch)</code></td>      <td class="net-sig"><code>void window.AddChar(int ch)</code></td></tr>
+<tr><td class="c-sig"><code>int mvaddch(int y, int x, chtype ch)</code></td>  <td class="net-sig"><code>void NetCurses.MvAddChar(int y, int x, int ch)</code></td></tr>
+<tr><td class="c-sig"><code>int addstr(const char *str)</code></td>           <td class="net-sig"><code>void NetCurses.AddString(string str)</code></td></tr>
+<tr><td class="c-sig"><code>int waddstr(WINDOW *w, const char *str)</code></td><td class="net-sig"><code>void window.AddString(string str)</code></td></tr>
+<tr><td class="c-sig"><code>int mvaddstr(int y, int x, const char *str)</code></td><td class="net-sig"><code>void NetCurses.MvAddString(int y, int x, string str)</code></td></tr>
+<tr><td class="c-sig"><code>int printw(const char *fmt, ...)</code></td>      <td class="net-sig"><code>void NetCurses.Print(string fmt, params object[] args)</code></td></tr>
+<tr><td class="c-sig"><code>int wprintw(WINDOW *w, const char *fmt, ...)</code></td><td class="net-sig"><code>void window.Print(string fmt, params object[] args)</code></td></tr>
+<tr><td class="c-sig"><code>int mvprintw(int y, int x, const char *fmt, ...)</code></td><td class="net-sig"><code>void NetCurses.MvPrint(int y, int x, string fmt, params object[] args)</code></td></tr>
+<tr><td class="c-sig"><code>int insch(chtype ch)</code></td>                  <td class="net-sig"><code>void NetCurses.InsertChar(Rune ch)</code></td></tr>
+<tr><td class="c-sig"><code>int delch(void)</code></td>                       <td class="net-sig"><code>void NetCurses.DeleteChar()</code></td></tr>
+</table>
+
+<h2>Cursor</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int move(int y, int x)</code></td>               <td class="net-sig"><code>void NetCurses.Move(int y, int x)</code></td></tr>
+<tr><td class="c-sig"><code>int wmove(WINDOW *w, int y, int x)</code></td>   <td class="net-sig"><code>void window.Move(int y, int x)</code></td></tr>
+<tr><td class="c-sig"><code>void getyx(WINDOW *w, int y, int x)</code></td>  <td class="net-sig"><code>void window.GetYX(out int y, out int x)</code></td></tr>
+<tr><td class="c-sig"><code>int curs_set(int visibility)</code></td>         <td class="net-sig"><code>void NetCurses.CursorSet(int visibility)</code></td></tr>
+</table>
+
+<h2>Input</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int getch(void)</code></td>                      <td class="net-sig"><code>int NetCurses.GetChar()</code></td></tr>
+<tr><td class="c-sig"><code>int wgetch(WINDOW *w)</code></td>                <td class="net-sig"><code>int window.GetChar()</code></td></tr>
+<tr><td class="c-sig"><code>int getstr(char *str)</code></td>                <td class="net-sig"><code>string NetCurses.GetString(int maxLen)</code></td></tr>
+<tr><td class="c-sig"><code>int ungetch(int ch)</code></td>                  <td class="net-sig"><code>void NetCurses.UngetChar(int ch)</code></td></tr>
+</table>
+
+<h2>Input Modes</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int cbreak(void)</code></td>                     <td class="net-sig"><code>void NetCurses.CBreak()</code></td></tr>
+<tr><td class="c-sig"><code>int nocbreak(void)</code></td>                   <td class="net-sig"><code>void NetCurses.NoCBreak()</code></td></tr>
+<tr><td class="c-sig"><code>int raw(void)</code></td>                        <td class="net-sig"><code>void NetCurses.Raw()</code></td></tr>
+<tr><td class="c-sig"><code>int noraw(void)</code></td>                      <td class="net-sig"><code>void NetCurses.NoRaw()</code></td></tr>
+<tr><td class="c-sig"><code>int echo(void)</code></td>                       <td class="net-sig"><code>void NetCurses.Echo()</code></td></tr>
+<tr><td class="c-sig"><code>int noecho(void)</code></td>                     <td class="net-sig"><code>void NetCurses.NoEcho()</code></td></tr>
+<tr><td class="c-sig"><code>int halfdelay(int tenths)</code></td>            <td class="net-sig"><code>void NetCurses.HalfDelay(int tenths)</code></td></tr>
+<tr><td class="c-sig"><code>int keypad(WINDOW *w, bool bf)</code></td>       <td class="net-sig"><code>void window.Keypad(bool enable)</code></td></tr>
+<tr><td class="c-sig"><code>int nodelay(WINDOW *w, bool bf)</code></td>      <td class="net-sig"><code>void window.NoDelay(bool enable)</code></td></tr>
+<tr><td class="c-sig"><code>void wtimeout(WINDOW *w, int delay)</code></td>  <td class="net-sig"><code>void window.Timeout(int ms)</code></td></tr>
+</table>
+
+<h2>Attributes</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int attron(int attrs)</code></td>                <td class="net-sig"><code>void NetCurses.AttributeOn(uint attrs)</code></td></tr>
+<tr><td class="c-sig"><code>int wattron(WINDOW *w, int attrs)</code></td>    <td class="net-sig"><code>void window.AttributeOn(uint attrs)</code></td></tr>
+<tr><td class="c-sig"><code>int attroff(int attrs)</code></td>               <td class="net-sig"><code>void NetCurses.AttributeOff(uint attrs)</code></td></tr>
+<tr><td class="c-sig"><code>int wattroff(WINDOW *w, int attrs)</code></td>   <td class="net-sig"><code>void window.AttributeOff(uint attrs)</code></td></tr>
+<tr><td class="c-sig"><code>int attrset(int attrs)</code></td>               <td class="net-sig"><code>void NetCurses.AttributeSet(uint attrs)</code></td></tr>
+<tr><td class="c-sig"><code>int wattrset(WINDOW *w, int attrs)</code></td>   <td class="net-sig"><code>void window.AttributeSet(uint attrs)</code></td></tr>
+<tr><td class="c-sig"><code>int standout(void)</code></td>                   <td class="net-sig"><code>void NetCurses.Standout()</code></td></tr>
+<tr><td class="c-sig"><code>int standend(void)</code></td>                   <td class="net-sig"><code>void NetCurses.StandEnd()</code></td></tr>
+</table>
+
+<h2>Attribute Constants</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>A_NORMAL</code></td>      <td class="net-sig"><code>Attrs.Normal</code></td></tr>
+<tr><td class="c-sig"><code>A_STANDOUT</code></td>    <td class="net-sig"><code>Attrs.Standout</code></td></tr>
+<tr><td class="c-sig"><code>A_UNDERLINE</code></td>   <td class="net-sig"><code>Attrs.Underline</code></td></tr>
+<tr><td class="c-sig"><code>A_REVERSE</code></td>     <td class="net-sig"><code>Attrs.Reverse</code></td></tr>
+<tr><td class="c-sig"><code>A_BLINK</code></td>       <td class="net-sig"><code>Attrs.Blink</code></td></tr>
+<tr><td class="c-sig"><code>A_DIM</code></td>         <td class="net-sig"><code>Attrs.Dim</code></td></tr>
+<tr><td class="c-sig"><code>A_BOLD</code></td>        <td class="net-sig"><code>Attrs.Bold</code></td></tr>
+<tr><td class="c-sig"><code>A_INVIS</code></td>       <td class="net-sig"><code>Attrs.Invisible</code></td></tr>
+<tr><td class="c-sig"><code>A_ITALIC</code></td>      <td class="net-sig"><code>Attrs.Italic</code></td></tr>
+<tr><td class="c-sig"><code>COLOR_PAIR(n)</code></td>  <td class="net-sig"><code>Attrs.ColorPair(int n)</code></td></tr>
+<tr><td class="c-sig"><code>PAIR_NUMBER(attrs)</code></td><td class="net-sig"><code>Attrs.PairNumber(uint attr)</code></td></tr>
+</table>
+
+<h2>Colors</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int start_color(void)</code></td>               <td class="net-sig"><code>void NetCurses.StartColor()</code></td></tr>
+<tr><td class="c-sig"><code>int init_pair(short pair, short f, short b)</code></td><td class="net-sig"><code>void NetCurses.InitPair(int pair, short fg, short bg)</code></td></tr>
+<tr><td class="c-sig"><code>bool has_colors(void)</code></td>               <td class="net-sig"><code>bool NetCurses.HasColors()</code></td></tr>
+<tr><td class="c-sig"><code>COLOR_PAIR(n)</code></td>                        <td class="net-sig"><code>uint NetCurses.ColorPair(int n)</code></td></tr>
+</table>
+
+<h2>Color Constants</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>COLOR_BLACK</code></td>   <td class="net-sig"><code>Colors.Black</code></td></tr>
+<tr><td class="c-sig"><code>COLOR_RED</code></td>     <td class="net-sig"><code>Colors.Red</code></td></tr>
+<tr><td class="c-sig"><code>COLOR_GREEN</code></td>   <td class="net-sig"><code>Colors.Green</code></td></tr>
+<tr><td class="c-sig"><code>COLOR_YELLOW</code></td>  <td class="net-sig"><code>Colors.Yellow</code></td></tr>
+<tr><td class="c-sig"><code>COLOR_BLUE</code></td>    <td class="net-sig"><code>Colors.Blue</code></td></tr>
+<tr><td class="c-sig"><code>COLOR_MAGENTA</code></td> <td class="net-sig"><code>Colors.Magenta</code></td></tr>
+<tr><td class="c-sig"><code>COLOR_CYAN</code></td>    <td class="net-sig"><code>Colors.Cyan</code></td></tr>
+<tr><td class="c-sig"><code>COLOR_WHITE</code></td>   <td class="net-sig"><code>Colors.White</code></td></tr>
+</table>
+
+<h2>Window Management</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>WINDOW *newwin(int h, int w, int y, int x)</code></td><td class="net-sig"><code>Window NetCurses.NewWindow(int rows, int cols, int beginY, int beginX)</code></td></tr>
+<tr><td class="c-sig"><code>int delwin(WINDOW *w)</code></td>                     <td class="net-sig"><code>void NetCurses.DeleteWindow(Window win)</code></td></tr>
+<tr><td class="c-sig"><code>WINDOW *subwin(WINDOW *p, int h, int w, int y, int x)</code></td><td class="net-sig"><code>Window NetCurses.SubWindow(Window parent, int rows, int cols, int beginY, int beginX)</code></td></tr>
+<tr><td class="c-sig"><code>int mvwin(WINDOW *w, int y, int x)</code></td>        <td class="net-sig"><code>void NetCurses.MoveWindow(Window win, int y, int x)</code></td></tr>
+</table>
+
+<h2>Window Properties</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int getmaxy(WINDOW *w)</code></td>   <td class="net-sig"><code>int window.MaxY</code></td></tr>
+<tr><td class="c-sig"><code>int getmaxx(WINDOW *w)</code></td>   <td class="net-sig"><code>int window.MaxX</code></td></tr>
+<tr><td class="c-sig"><code>int getbegy(WINDOW *w)</code></td>   <td class="net-sig"><code>int window.BeginY</code></td></tr>
+<tr><td class="c-sig"><code>int getbegx(WINDOW *w)</code></td>   <td class="net-sig"><code>int window.BeginX</code></td></tr>
+<tr><td class="c-sig"><code>int getcury(WINDOW *w)</code></td>   <td class="net-sig"><code>int window.CursorY</code></td></tr>
+<tr><td class="c-sig"><code>int getcurx(WINDOW *w)</code></td>   <td class="net-sig"><code>int window.CursorX</code></td></tr>
+<tr><td class="c-sig"><code>LINES</code></td>                    <td class="net-sig"><code>int NetCurses.Lines</code></td></tr>
+<tr><td class="c-sig"><code>COLS</code></td>                     <td class="net-sig"><code>int NetCurses.Cols</code></td></tr>
+</table>
+
+<h2>Clearing</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int clear(void)</code></td>          <td class="net-sig"><code>void NetCurses.Clear()</code></td></tr>
+<tr><td class="c-sig"><code>int wclear(WINDOW *w)</code></td>    <td class="net-sig"><code>void window.Clear()</code></td></tr>
+<tr><td class="c-sig"><code>int erase(void)</code></td>          <td class="net-sig"><code>void NetCurses.Erase()</code></td></tr>
+<tr><td class="c-sig"><code>int werase(WINDOW *w)</code></td>    <td class="net-sig"><code>void window.Erase()</code></td></tr>
+<tr><td class="c-sig"><code>int clrtoeol(void)</code></td>       <td class="net-sig"><code>void NetCurses.ClearToEndOfLine()</code></td></tr>
+<tr><td class="c-sig"><code>int wclrtoeol(WINDOW *w)</code></td> <td class="net-sig"><code>void window.ClearToEndOfLine()</code></td></tr>
+<tr><td class="c-sig"><code>int clrtobot(void)</code></td>       <td class="net-sig"><code>void NetCurses.ClearToBottom()</code></td></tr>
+<tr><td class="c-sig"><code>int wclrtobot(WINDOW *w)</code></td> <td class="net-sig"><code>void window.ClearToBottom()</code></td></tr>
+</table>
+
+<h2>Refresh</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int refresh(void)</code></td>             <td class="net-sig"><code>void NetCurses.Refresh()</code></td></tr>
+<tr><td class="c-sig"><code>int wrefresh(WINDOW *w)</code></td>       <td class="net-sig"><code>void window.Refresh()</code></td></tr>
+<tr><td class="c-sig"><code>int wnoutrefresh(WINDOW *w)</code></td>   <td class="net-sig"><code>void window.NoOutRefresh()</code></td></tr>
+<tr><td class="c-sig"><code>int doupdate(void)</code></td>            <td class="net-sig"><code>void NetCurses.DoUpdate()</code></td></tr>
+</table>
+
+<h2>Borders &amp; Lines</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int wborder(WINDOW *w, chtype ls, chtype rs, chtype ts, chtype bs, chtype tl, chtype tr, chtype bl, chtype br)</code></td><td class="net-sig"><code>void window.Border(Rune ls, Rune rs, Rune ts, Rune bs, Rune tl, Rune tr, Rune bl, Rune br)</code></td></tr>
+<tr><td class="c-sig"><code>int box(WINDOW *w, chtype vert, chtype horiz)</code></td><td class="net-sig"><code>void window.Box(Rune vertChar, Rune horizChar)</code></td></tr>
+<tr><td class="c-sig"><code>int whline(WINDOW *w, chtype ch, int n)</code></td><td class="net-sig"><code>void window.HorizontalLine(Rune ch, int n)</code></td></tr>
+<tr><td class="c-sig"><code>int wvline(WINDOW *w, chtype ch, int n)</code></td><td class="net-sig"><code>void window.VerticalLine(Rune ch, int n)</code></td></tr>
+</table>
+
+<h2>ACS Box-Drawing Characters</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>ACS_ULCORNER</code></td>  <td class="net-sig"><code>Acs.ULCorner</code></td></tr>
+<tr><td class="c-sig"><code>ACS_URCORNER</code></td>  <td class="net-sig"><code>Acs.URCorner</code></td></tr>
+<tr><td class="c-sig"><code>ACS_LLCORNER</code></td>  <td class="net-sig"><code>Acs.LLCorner</code></td></tr>
+<tr><td class="c-sig"><code>ACS_LRCORNER</code></td>  <td class="net-sig"><code>Acs.LRCorner</code></td></tr>
+<tr><td class="c-sig"><code>ACS_LTEE</code></td>      <td class="net-sig"><code>Acs.LTee</code></td></tr>
+<tr><td class="c-sig"><code>ACS_RTEE</code></td>      <td class="net-sig"><code>Acs.RTee</code></td></tr>
+<tr><td class="c-sig"><code>ACS_TTEE</code></td>      <td class="net-sig"><code>Acs.TTee</code></td></tr>
+<tr><td class="c-sig"><code>ACS_BTEE</code></td>      <td class="net-sig"><code>Acs.BTee</code></td></tr>
+<tr><td class="c-sig"><code>ACS_HLINE</code></td>     <td class="net-sig"><code>Acs.HLine</code></td></tr>
+<tr><td class="c-sig"><code>ACS_VLINE</code></td>     <td class="net-sig"><code>Acs.VLine</code></td></tr>
+<tr><td class="c-sig"><code>ACS_PLUS</code></td>      <td class="net-sig"><code>Acs.Plus</code></td></tr>
+<tr><td class="c-sig"><code>ACS_DIAMOND</code></td>   <td class="net-sig"><code>Acs.Diamond</code></td></tr>
+<tr><td class="c-sig"><code>ACS_BOARD</code></td>     <td class="net-sig"><code>Acs.Board</code></td></tr>
+<tr><td class="c-sig"><code>ACS_BLOCK</code></td>     <td class="net-sig"><code>Acs.Block</code></td></tr>
+<tr><td class="c-sig"><code>ACS_BULLET</code></td>    <td class="net-sig"><code>Acs.Bullet</code></td></tr>
+<tr><td class="c-sig"><code>ACS_DEGREE</code></td>    <td class="net-sig"><code>Acs.Degree</code></td></tr>
+<tr><td class="c-sig"><code>ACS_LARROW</code></td>    <td class="net-sig"><code>Acs.LArrow</code></td></tr>
+<tr><td class="c-sig"><code>ACS_RARROW</code></td>    <td class="net-sig"><code>Acs.RArrow</code></td></tr>
+<tr><td class="c-sig"><code>ACS_UARROW</code></td>    <td class="net-sig"><code>Acs.UArrow</code></td></tr>
+<tr><td class="c-sig"><code>ACS_DARROW</code></td>    <td class="net-sig"><code>Acs.DArrow</code></td></tr>
+</table>
+
+<h2>Scrolling</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int scrollok(WINDOW *w, bool bf)</code></td>          <td class="net-sig"><code>void window.ScrollOk(bool enable)</code></td></tr>
+<tr><td class="c-sig"><code>int wsetscrreg(WINDOW *w, int top, int bot)</code></td><td class="net-sig"><code>void window.SetScrollRegion(int top, int bottom)</code></td></tr>
+<tr><td class="c-sig"><code>int wscrl(WINDOW *w, int n)</code></td>               <td class="net-sig"><code>void window.Scroll(int n)</code></td></tr>
+</table>
+
+<h2>Key Constants</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>ERR</code></td>            <td class="net-sig"><code>Key.ErrKey</code></td></tr>
+<tr><td class="c-sig"><code>KEY_UP</code></td>         <td class="net-sig"><code>Key.Up</code></td></tr>
+<tr><td class="c-sig"><code>KEY_DOWN</code></td>       <td class="net-sig"><code>Key.Down</code></td></tr>
+<tr><td class="c-sig"><code>KEY_LEFT</code></td>       <td class="net-sig"><code>Key.Left</code></td></tr>
+<tr><td class="c-sig"><code>KEY_RIGHT</code></td>      <td class="net-sig"><code>Key.Right</code></td></tr>
+<tr><td class="c-sig"><code>KEY_HOME</code></td>       <td class="net-sig"><code>Key.Home</code></td></tr>
+<tr><td class="c-sig"><code>KEY_END</code></td>        <td class="net-sig"><code>Key.End</code></td></tr>
+<tr><td class="c-sig"><code>KEY_BACKSPACE</code></td>  <td class="net-sig"><code>Key.Backspace</code></td></tr>
+<tr><td class="c-sig"><code>KEY_DC</code></td>         <td class="net-sig"><code>Key.Delete</code></td></tr>
+<tr><td class="c-sig"><code>KEY_IC</code></td>         <td class="net-sig"><code>Key.Insert</code></td></tr>
+<tr><td class="c-sig"><code>KEY_NPAGE</code></td>      <td class="net-sig"><code>Key.PageDown</code></td></tr>
+<tr><td class="c-sig"><code>KEY_PPAGE</code></td>      <td class="net-sig"><code>Key.PageUp</code></td></tr>
+<tr><td class="c-sig"><code>KEY_ENTER</code></td>      <td class="net-sig"><code>Key.Enter</code></td></tr>
+<tr><td class="c-sig"><code>KEY_RESIZE</code></td>     <td class="net-sig"><code>Key.Resize</code></td></tr>
+<tr><td class="c-sig"><code>KEY_F(1)</code> .. <code>KEY_F(12)</code></td><td class="net-sig"><code>Key.F1</code> .. <code>Key.F12</code></td></tr>
+</table>
+
+<h2>Miscellaneous</h2>
+<table>
+<tr><th style="width:50%">C ncurses</th><th>NetCurses (.NET)</th></tr>
+<tr><td class="c-sig"><code>int beep(void)</code></td>      <td class="net-sig"><code>void NetCurses.Beep()</code></td></tr>
+<tr><td class="c-sig"><code>int flash(void)</code></td>     <td class="net-sig"><code>void NetCurses.Flash()</code></td></tr>
+<tr><td class="c-sig"><code>int napms(int ms)</code></td>   <td class="net-sig"><code>void NetCurses.Nap(int ms)</code></td></tr>
+</table>
+
+<footer>
+  BCyT.NetCurses &mdash; ISC License &copy; 2026 César Bravo Molina
+</footer>
+
+</body>
+</html>

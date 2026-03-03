@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="TUTORIAL.md" />
+  </Folder>
+  <Project Path="NetCurses.Tests/NetCurses.Tests.csproj" />
+  <Project Path="NetCurses/NetCurses.csproj" />
+  <Project Path="SampleDungeonCrawler/SampleDungeonCrawler.csproj" />
+  <Project Path="SampleHelloWorld/SampleHelloWorld.csproj" Id="1139840f-bed8-4801-be1f-aa9a9555396c" />
+</Solution>
