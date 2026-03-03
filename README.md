@@ -2,6 +2,8 @@
 
 An ncurses implementation for .NET - build TUIs with C# and .NET 10.0
 
+<img width="1105" height="687" alt="image" src="https://github.com/user-attachments/assets/751a3458-889b-4f81-92f0-5a5608a534cc" />
+
 ## Installation
 
 ```bash
@@ -24,6 +26,8 @@ try
     NetCurses.EndWin();
 }
 ```
+
+<img width="1726" height="916" alt="image" src="https://github.com/user-attachments/assets/44b38a35-9ed4-4717-b6dc-3e0a7bf42ad1" />
 
 ## Documentation
 
